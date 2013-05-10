@@ -16,30 +16,26 @@ class TheatersController < ApplicationController
     @theater = Theater.new
     @theater.name = params[:name]
     @theater.address = params[:address]
-
-    if @theater.save
-      redirect_to "/theaters"
-    else
-      render 'new'
-    end
+    @theater.save
+    redirect_to "/theaters"
   end
 
   def edit
-    @theater = Theater.find_by_id(params[:movie_id])
+    #
+    @theater = Theater.find_by_id(params["id"])
   end
 
   def update
-    @theater = Theater.find_by_id(params[:id])
-
-    if @theater.save
-      redirect_to "/theaters"
-    else
-      render 'edit'
-    end
+    @theater = Theater.find_by_id(params["id"])
+    @theater.name = params[:name]
+    @theater.address = params[:address]
+    @theater.save
+    redirect_to "/theaters"
   end
 
   def destroy
-    @theater = Theater.find_by_id(params[:id])
+    t = Theater.find_by_id(params["id"])
+    t.destroy
     redirect_to "/theaters"
   end
 end
